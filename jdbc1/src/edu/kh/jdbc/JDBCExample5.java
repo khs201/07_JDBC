@@ -63,7 +63,7 @@ public class JDBCExample5 {
 			int result = stmt.executeUpdate(sql);
 			
 			
-			/* 6. 수행 결과에 따라 트랜잭셩 제어 처리 */
+			/* 6. 수행 결과에 따라 트랜잭션 제어 처리 */
 			if(result > 0) {
 				System.out.println("삽입 성공");
 				conn.commit();

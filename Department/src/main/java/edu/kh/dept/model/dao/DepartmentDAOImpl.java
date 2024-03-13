@@ -1,6 +1,6 @@
 package edu.kh.dept.model.dao;
 
-import static edu.kh.dept.common.JDBCTemplate.*;
+import static edu.kh.dept.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import edu.kh.dept.common.JDBCTemplate;
 import edu.kh.dept.model.dto.Department;
 
 // DAO (Data Access Object) : DB 접근 객체(SQL 수행, 결과 반환)
@@ -78,6 +77,42 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		}
 		
 		return deptList;
+	}
+
+
+	// 부서 추가
+	@Override
+	public int insertDepartment(Connection conn, Department dept) throws SQLException {
+		
+		// 1. 결과 저장용 변수 선언 / 객체 생성
+		int result = 0;
+		
+		try {
+			// 2. SQL 얻어오기
+			String sql = prop.getProperty("insertDepartment");
+			
+			// 3. PreparedStatement 객체 생성 + SQL 적재
+			pstmt = conn.prepareStatement(sql);
+			
+			// 4. ?에 알맞은 값 대입
+			pstmt.setString(1, dept.getDeptId());
+			pstmt.setString(2, dept.getDeptTitle());
+			pstmt.setString(3, dept.getLocationId());
+			
+			// 5. SQL(INSERT) 수행 후 결과(삽입 성공한 행의 개수) 반환 받기
+			result = pstmt.executeUpdate();
+			
+			
+			
+			
+			
+		} finally {
+			// 6. 사용한 JDBC 객체 자원 반환 (단, 커넥션 제외)
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 	
 	
