@@ -22,6 +22,27 @@ public interface DepartmentDAO {
 	 */
 	int insertDepartment(Connection conn, Department dept) throws SQLException;
 
+	int deleteDepartment(Connection conn, Department dept) throws SQLException;
+
+	Department selectOne(Connection conn, String deptId) throws SQLException;
+
+	int deleteDepartment(Connection conn, String deptId) throws SQLException;
+
+	/**
+	 * @param conn
+	 * @param dept
+	 * @return
+	 * @throws SQLException
+	 */
+	int updateDepartment(Connection conn, Department dept) throws SQLException;
+
+	List<Department> search(Connection conn, String keyword) throws SQLException;
+
+
+	
+	
+
+
 	
 	
 	

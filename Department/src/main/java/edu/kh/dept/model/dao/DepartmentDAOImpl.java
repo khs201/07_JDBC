@@ -72,8 +72,9 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 			}
 			
 		}finally {
+			// 사용한 JDBC 객체 자원 반환 (커넥션 제외)
 			close(rs);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return deptList;
@@ -83,7 +84,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 	// 부서 추가
 	@Override
 	public int insertDepartment(Connection conn, Department dept) throws SQLException {
-		
+	
 		// 1. 결과 저장용 변수 선언 / 객체 생성
 		int result = 0;
 		
@@ -94,6 +95,7 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 			// 3. PreparedStatement 객체 생성 + SQL 적재
 			pstmt = conn.prepareStatement(sql);
 			
+			
 			// 4. ?에 알맞은 값 대입
 			pstmt.setString(1, dept.getDeptId());
 			pstmt.setString(2, dept.getDeptTitle());
@@ -102,18 +104,141 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 			// 5. SQL(INSERT) 수행 후 결과(삽입 성공한 행의 개수) 반환 받기
 			result = pstmt.executeUpdate();
 			
-			
-			
-			
-			
-		} finally {
+		}finally {
 			// 6. 사용한 JDBC 객체 자원 반환 (단, 커넥션 제외)
 			close(pstmt);
 		}
 		
+		return result;
+	}
+	
+	
+	@Override
+	public int deleteDepartment(Connection conn, String deptId) throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("deleteDepartment");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, deptId);
+			
+			result = pstmt.executeUpdate(); // DML 수행
+			
+		}finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}
+	
+	
+	// 부서 1행 조회
+	@Override
+	public Department selectOne(Connection conn, String deptId) throws SQLException {
+		
+		// 결과 저장용 변수 선언
+		Department dept = null; 
+		
+		try {
+			
+			// SQL 얻어오기
+			String sql = prop.getProperty("selectOne");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, deptId);
+			
+			// SQL(SELECT) 수행 후 결과(ResultSet) 반환 받기
+			rs = pstmt.executeQuery();
+			
+			// PK를 조건으로 삼은 SELECT문은
+			// 조회 성공 시 1행만 조회됨! --> while 대신 if문으로 1회만 접근
+			if(rs.next() ) {
+				
+				dept = new Department(
+						rs.getString("DEPT_ID"),
+						rs.getString("DEPT_TITLE"),
+						rs.getString("LOCATION_ID")
+						);
+				
+			}
+			
+		} catch (Exception e) {
+		}
+		
+		
+		
+		return dept; // 조회 실패 시 null, 성공시 null 아님
+	}
+
+
+	@Override
+	public int deleteDepartment(Connection conn, Department dept) throws SQLException {
+		return 0;
+	}
+	
+	
+	
+	@Override
+	public int updateDepartment(Connection conn, Department dept) throws SQLException {
+		
+		int result = 0;
+		
+		try {
+			// 2. SQL 얻어오기
+			String sql = prop.getProperty("updateDepartment");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dept.getDeptTitle());
+			pstmt.setString(2, dept.getLocationId());
+			pstmt.setString(3, dept.getDeptId());
+			
+			// 5. SQL(UPDATE) 수행 후 결과(삽입 성공한 행의 개수) 반환 받기
+			result = pstmt.executeUpdate();
+			
+		}finally { // 무조건 반환하기 위해 finally, finally를 쓰기 위해 try문을 쓰는거임
+			// 6. 사용한 JDBC 객체 자원 반환 (단, 커넥션 제외)
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<Department> search(Connection conn, String keyword) throws SQLException {
+		
+		List<Department> deptList = new ArrayList<Department>();
+		
+		try {
+			String sql = prop.getProperty("search");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				String deptId     = rs.getString("DEPT_ID");
+				String deptTitle  = rs.getString("DEPT_TITLE");
+				String locationId = rs.getString("LOCATION_ID");
+				
+				Department dept = new Department(deptId, deptTitle, locationId);
+				
+				deptList.add(dept);
+			}
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return deptList;
+	}
+
+
+	
 	
 	
 }

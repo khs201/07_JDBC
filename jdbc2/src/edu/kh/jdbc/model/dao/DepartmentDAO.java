@@ -2,7 +2,10 @@ package edu.kh.jdbc.model.dao;
 
 // JDBCTemplate 클래스 내부의 static이 붙은 메서드를 모두 가져옴
 // -> 가져온 메서드는 메서드 호출 시 클래스명을 작성하지 않아도 된다!!
-import static edu.kh.jdbc.common.JDBCTemplate.*;
+import static edu.kh.jdbc.common.JDBCTemplate.close;
+import static edu.kh.jdbc.common.JDBCTemplate.commit;
+import static edu.kh.jdbc.common.JDBCTemplate.getConnection;
+import static edu.kh.jdbc.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.kh.jdbc.common.JDBCTemplate;
 import edu.kh.jdbc.model.dto.Department;
 
 // DAO(Data Aceess Object) : 데이터(DB,파일) 접근하는 객체 
@@ -236,7 +238,7 @@ public class DepartmentDAO {
 		try {
 			conn = getConnection();
 			
-			String sql = "DELETE FROM DEPARTMENT4 WHERE DEPT_ID = ?";
+			String sql = "DELETE FROM DEPARTMENT4 WHERE DEPT_ID = (?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, deptId);
