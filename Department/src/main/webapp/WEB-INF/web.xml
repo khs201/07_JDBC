@@ -19,4 +19,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>TEST</display-name>
+    <servlet-name>TEST</servlet-name>
+    <servlet-class>edu.kh.dept.model.dao.TEST</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TEST</servlet-name>
+    <url-pattern>/TEST</url-pattern>
+  </servlet-mapping>
 </web-app>

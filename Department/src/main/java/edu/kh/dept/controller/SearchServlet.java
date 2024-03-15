@@ -20,9 +20,9 @@ public class SearchServlet extends HttpServlet{
 		
 		try {
 			
-			String keyword = req.getParameter("keyword"); // 검색어
-			
 			DepartmentService service = new DepartmentServiceImpl();
+			
+			String keyword = req.getParameter("keyword"); // 검색어
 			
 			List<Department> deptList = service.search(keyword);
 			
@@ -30,6 +30,8 @@ public class SearchServlet extends HttpServlet{
 			
 			// forward할 jsp 경로
 			String path = "/WEB-INF/views/search.jsp";
+			
+			// 요청 위임
 			req.getRequestDispatcher(path).forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();
