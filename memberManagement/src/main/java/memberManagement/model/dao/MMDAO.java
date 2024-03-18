@@ -14,6 +14,20 @@ public interface MMDAO {
 	 * @throws SQLException
 	 */
 	List<MM> selectAll(Connection conn) throws SQLException;
+	
+	/** 회원 전체 조회 
+	 * @param conn
+	 * @return memberList
+	 * @throws SQLException
+	 */
+	List<MM> selectAllAsc(Connection conn, String asc) throws SQLException;
+	
+	/** 회원 전체 조회 
+	 * @param conn
+	 * @return memberList
+	 * @throws SQLException
+	 */
+	List<MM> selectAllDesc(Connection conn, String desc) throws SQLException;
 
 	/** 회원 추가
 	 * @param conn 

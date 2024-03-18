@@ -28,7 +28,10 @@ public class MainServlet extends HttpServlet{
 				// 할 일 목록 + 완료된 할 일 개수 조회하는
 				// 서비스 호출 후 결과 반환 받기
 				
-				Map<String, Object> map = service.selectAll();
+				String asc = req.getParameter("asc");
+				String desc = req.getParameter("desc");
+				
+				Map<String, Object> map = service.selectAll(asc, desc);
 				
 				// map에 담긴 데이터 분리 (형변환)
 				List<MM> memberList = (List<MM>)map.get("memberList");

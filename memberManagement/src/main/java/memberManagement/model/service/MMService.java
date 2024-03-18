@@ -6,10 +6,12 @@ import java.util.Map;
 public interface MMService {
 
 	/** 전체 회원 조회
+	 * @param desc 
+	 * @param asc 
 	 * @return map
 	 * @throws SQLException
 	 */
-	Map<String, Object> selectAll() throws SQLException;
+	Map<String, Object> selectAll(String asc, String desc) throws SQLException;
 
 	/** 회원 추가
 	 * @param memberNo

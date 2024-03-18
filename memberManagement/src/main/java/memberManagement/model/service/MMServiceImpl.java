@@ -24,20 +24,22 @@ public class MMServiceImpl implements MMService{
 	}
 
 	@Override
-	public Map<String, Object> selectAll() throws SQLException {
+	public Map<String, Object> selectAll(String asc, String desc) throws SQLException {
 		
 		Connection conn = getConnection();
 		
-		List<MM> memberList = dao.selectAll(conn); 
+		
+		List<MM> memberList = null;
+		
+		if(asc == null && desc == null)	memberList = dao.selectAll(conn);
+		else if(asc != null)						memberList = dao.selectAllAsc(conn, asc);
+		else														memberList = dao.selectAllDesc(conn, desc); 
 		
 		close(conn);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("memberList", memberList);
-		
-		
-		
 		
 		return map;
 	}

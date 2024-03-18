@@ -44,7 +44,7 @@ public class MMDAOImpl implements MMDAO{
 		
 		try {
 			
-			String sql = prop.getProperty("selectAll");
+			String sql = prop.getProperty("selectAll") + " ORDER BY MEMBER_NO ";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
@@ -64,6 +64,64 @@ public class MMDAOImpl implements MMDAO{
 			close(rs);
 		}
 		
+		return memberList;
+	}
+	
+	@Override
+	public List<MM> selectAllAsc(Connection conn, String asc) throws SQLException {
+		List<MM> memberList = new ArrayList<MM>();
+		
+		try {
+			
+			String sql = prop.getProperty("selectAll") + " ORDER BY " + asc;
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) { // 조회 결과 한 행씩 접근
+				String memberNo = rs.getString("MEMBER_NO");
+				String memberName = rs.getString("MEMBER_NAME");
+				String gradeName = rs.getString("GRADE_NAME");
+				
+				MM mm = new MM(memberNo, memberName, gradeName);
+				memberList.add(mm);
+				
+			}
+			
+			
+		} finally {
+			close(stmt);
+			close(rs);
+		}
+		
+		return memberList;
+	}
+	
+	
+	@Override
+	public List<MM> selectAllDesc(Connection conn, String desc) throws SQLException {
+		List<MM> memberList = new ArrayList<MM>();
+		
+		try {
+			
+			String sql = prop.getProperty("selectAll") + " ORDER BY " + desc + " DESC";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) { // 조회 결과 한 행씩 접근
+				String memberNo = rs.getString("MEMBER_NO");
+				String memberName = rs.getString("MEMBER_NAME");
+				String gradeName = rs.getString("GRADE_NAME");
+				
+				MM mm = new MM(memberNo, memberName, gradeName);
+				memberList.add(mm);
+				
+			}
+			
+			
+		} finally {
+			close(stmt);
+			close(rs);
+		}
 		
 		return memberList;
 	}

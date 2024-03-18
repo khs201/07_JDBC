@@ -6,7 +6,6 @@
 <entry key="selectAll">
 SELECT MEMBER_NO, MEMBER_NAME, GRADE_NAME
 FROM MEMBER
-ORDER BY MEMBER_NO 
 </entry>
 
 <entry key="addMM">
