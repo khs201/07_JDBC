@@ -28,4 +28,13 @@ public interface MMService {
 	 */
 	int MMdelete(String memberNo) throws SQLException;
 
+	/** 회원 정보 수정
+	 * @param memberNo
+	 * @param updatedGradeName 
+	 * @param updatedMemberName 
+	 * @return
+	 * @throws SQLException
+	 */
+	int MMUpdate(String memberNo, String updatedMemberName, String updatedGradeName) throws SQLException;
+
 }

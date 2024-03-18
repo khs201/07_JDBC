@@ -109,5 +109,28 @@ public class MMDAOImpl implements MMDAO{
 		
 		return result;
 	}
+	
+	@Override
+	public int updateMember(Connection conn, String memberNo, String updatedMemberName, String updatedGradeName)
+			throws SQLException {
+		int result = 0;
+		try {
+
+			String sql = String.format(
+					"UPDATE MEMBER SET MEMBER_NAME = '%s', GRADE_NAME = '%s' WHERE MEMBER_NO = '%s'"
+					, updatedMemberName, updatedGradeName, memberNo
+					);
+			
+			stmt = conn.createStatement();
+			
+			//(MEMBER_NO, MEMBER_NAME, GRADE_NAME)
+			result = stmt.executeUpdate(sql);
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }

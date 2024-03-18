@@ -74,4 +74,19 @@ public class MMServiceImpl implements MMService{
 		return result;
 	}
 	
+	@Override
+	public int MMUpdate(String memberNo, String updatedMemberName, String updatedGradeName) throws SQLException {
+		Connection conn = getConnection();
+		
+		int result = dao.updateMember(conn, memberNo, updatedMemberName, updatedGradeName);
+		
+		// 트랜젝션 제어 처리
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn); // 커넥션 반환
+		
+		return result;
+	}
+	
 }

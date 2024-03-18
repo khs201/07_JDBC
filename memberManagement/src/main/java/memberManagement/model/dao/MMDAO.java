@@ -27,4 +27,14 @@ public interface MMDAO {
 
 	int deleteMember(Connection conn, String memberNo) throws SQLException;
 
+	/** 회원 정보 수정
+	 * @param conn
+	 * @param memberNo
+	 * @param updatedMemberName
+	 * @param updatedGradeName
+	 * @return result
+	 * @throws SQLException
+	 */
+	int updateMember(Connection conn, String memberNo, String updatedMemberName, String updatedGradeName) throws SQLException;
+
 }

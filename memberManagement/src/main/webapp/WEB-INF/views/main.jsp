@@ -52,7 +52,7 @@
         <td>${member.memberName}</td>
         <td>${member.gradeName}</td>
         <td><a href="/MM/delete?memberNo=${member.memberNo}"><button>삭제</button></a></td>
-        <td><a href="/MM/update?memberNo=${member.memberNo}"><button>수정</button></a></td>
+        <td><button onclick="updateMember('${member.memberNo}')">수정</button></td>
       </tr>
 
     </c:forEach>
@@ -80,6 +80,28 @@
     <c:remove var="message"/>
     </c:if>
 
+
+<script>
+    function updateMember(memberNo) {
+        
+        let updatedMemberName = "";
+        let updatedGradeName = "";
+
+        updatedMemberName = prompt("수정할 회원 이름을 입력하세요:", "");
+        updatedGradeName = prompt("수정할 회원 등급을 입력하세요:", "");
+
+        console.log(memberNo);
+        console.log(updatedMemberName);
+        console.log(updatedGradeName);
+        
+        const params = new URLSearchParams();
+        params.append("memberNo", memberNo);
+        params.append("updatedMemberName", updatedMemberName);
+        params.append("updatedGradeName", updatedGradeName);
+
+        location.href = "/MM/update?" + params.toString();
+    }
+  </script>
 
 </body>
 </html>
