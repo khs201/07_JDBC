@@ -10,6 +10,10 @@
     
     <h3>메인 화면</h3>
 
+<a href="/fb/reg"><button type="button">회원 가입</button></a>
+
+
+
 
 </body>
 </html>

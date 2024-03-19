@@ -51,7 +51,7 @@ public class JDBCTemplate {
 				// - 파일 입출력하기 편리한 기능을 제공
 				
 				// 컴파일된 driver.xml 파일의 위치를 얻어오는 코드
-				String path = JDBCTemplate.class.getResource("/edu/kh/dept/sql/driver.xml").getPath(); 
+				String path = JDBCTemplate.class.getResource("fb/sql/driver.xml").getPath(); 
 				
 				
 				prop.loadFromXML(new FileInputStream(path));
