@@ -102,9 +102,9 @@
     <table border="1" style="border-collapse: collapse;">
   <thead>
     <tr>
-      <th>회원 번호<span onclick="asc('MEMBER_NO')">🔼</span><span onclick="desc('MEMBER_NO')">🔽</span></th>
-      <th>회원명<span onclick="asc('MEMBER_NAME')">🔼</span><span onclick="desc('MEMBER_NAME')">🔽</span></th>
-      <th>등급명<span onclick="asc('GRADE_NAME')">🔼</span><span onclick="desc('GRADE_NAME')">🔽</span></th>
+      <th>회원 번호</th>
+      <th>회원명</th>
+      <th>등급명</th>
       <th>삭제</th>
       <th>수정</th>
     </tr>

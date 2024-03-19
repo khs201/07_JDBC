@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import memberManagement.model.dto.MM;
 import memberManagement.model.service.MMService;
 import memberManagement.model.service.MMServiceImpl;
@@ -37,7 +38,8 @@ public class MainServlet extends HttpServlet{
 				List<MM> memberList = (List<MM>)map.get("memberList");
 				
 				// 분리된 데이터를 request 객체에 속성으로 추가
-				req.setAttribute("memberList", memberList);
+				HttpSession session = req.getSession();
+				session.setAttribute("memberList", memberList);
 				
 				// main.jsp로 포워드
 				String path = "/WEB-INF/views/main.jsp";

@@ -27,6 +27,7 @@ public class MMSearchServlet extends HttpServlet{
 			
 			req.setAttribute("searchList", searchList);
 			
+			
 			// main.jsp로 포워드
 			String path = "/WEB-INF/views/main.jsp";
 			req.getRequestDispatcher(path).forward(req, resp);
