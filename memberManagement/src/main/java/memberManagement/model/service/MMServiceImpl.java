@@ -91,4 +91,27 @@ public class MMServiceImpl implements MMService{
 		return result;
 	}
 	
+	@Override
+	public List<MM> search(String searchType, String keyword) throws SQLException {
+		
+		Connection conn = getConnection();
+		
+		List<MM> searchList = dao.search(conn, searchType, keyword);
+//		String memNo = " WHERE MEMBER_NO = ";
+//		String memNa = " WHERE MEMBE"
+		
+//		if(searchType == "MEMBER_NO")	searchList = dao.search(conn, );
+//		else if(searchType == "MEMBER_NAME")						searchList = dao.search(conn, );
+//		else														searchList = dao.search(conn, ); 
+		
+//		if(searchType.equals())
+		
+		
+		
+		
+		
+		return searchList;
+	}
+	
+	
 }

@@ -191,4 +191,37 @@ public class MMDAOImpl implements MMDAO{
 		return result;
 	}
 
+	
+	@Override
+	public List<MM> search(Connection conn, String searchType, String keyword) throws SQLException {
+		List<MM> searchList = new ArrayList<MM>();
+		
+		try {
+			String sql = prop.getProperty("search") + "WHERE " + searchType + " = ? ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, keyword);
+			
+			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next()) { // 조회 결과 한 행씩 접근
+				String memberNo = rs.getString("MEMBER_NO");
+				String memberName = rs.getString("MEMBER_NAME");
+				String gradeName = rs.getString("GRADE_NAME");
+				
+				MM mm = new MM(memberNo, memberName, gradeName);
+				searchList.add(mm);
+			}
+		} finally {
+			close(stmt);
+			close(rs);
+		}
+		
+		return searchList;
+			
+			
+		
+		
+	}
 }

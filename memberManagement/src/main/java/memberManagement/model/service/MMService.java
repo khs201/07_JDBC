@@ -1,7 +1,10 @@
 package memberManagement.model.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
+
+import memberManagement.model.dto.MM;
 
 public interface MMService {
 
@@ -38,5 +41,7 @@ public interface MMService {
 	 * @throws SQLException
 	 */
 	int MMUpdate(String memberNo, String updatedMemberName, String updatedGradeName) throws SQLException;
+
+	List<MM> search(String searchType, String keyword) throws SQLException;
 
 }

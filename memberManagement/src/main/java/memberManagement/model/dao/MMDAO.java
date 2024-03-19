@@ -51,4 +51,6 @@ public interface MMDAO {
 	 */
 	int updateMember(Connection conn, String memberNo, String updatedMemberName, String updatedGradeName) throws SQLException;
 
+	List<MM> search(Connection conn, String searchType, String keyword) throws SQLException;
+
 }

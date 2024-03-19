@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 관리</title>
-    
 </head>
 <body>
 <style>
+
         body {
             font-family: Arial, sans-serif; 
             margin: 0;
@@ -83,15 +83,52 @@
             border-radius: 4px;
             font-size: 1em;
         }
-    </style>
+    
+</style>
+
+
+
+<h3>전체 회원 수 : ${fn:length(memberList)}명</h3>
+ <form action="/MM/search" method="get">
+ <h1>회원 검색</h1>
+        <select name="searchType">
+            <option value="MEMBER_NO">회원 번호</option>
+            <option value="MEMBER_NAME">회원명</option>
+            <option value="GRADE_NAME">등급명</option>
+        </select>
+        <input type="text" name="keyword">
+        <button type="submit">검색</button>
+    </form>
+    <table border="1" style="border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>회원 번호<span onclick="asc('MEMBER_NO')">🔼</span><span onclick="desc('MEMBER_NO')">🔽</span></th>
+      <th>회원명<span onclick="asc('MEMBER_NAME')">🔼</span><span onclick="desc('MEMBER_NAME')">🔽</span></th>
+      <th>등급명<span onclick="asc('GRADE_NAME')">🔼</span><span onclick="desc('GRADE_NAME')">🔽</span></th>
+      <th>삭제</th>
+      <th>수정</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach items="${searchList}" var="member">
+      <tr>
+        <td>${member.memberNo}</td>
+        <td>${member.memberName}</td>
+        <td>${member.gradeName}</td>
+        <td><a href="/MM/delete?memberNo=${member.memberNo}"><button>삭제</button></a></td>
+        <td><button onclick="updateMember('${member.memberNo}')">수정</button></td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>
+
+
+
 
 <h3>회원 목록</h3>
-<h3>전체 회원 수 : ${fn:length(memberList)}명</h3>
-
 <table border="1" style="border-collapse: collapse;">
   <thead>
     <tr>
-    
       <th>회원 번호<span onclick="asc('MEMBER_NO')">🔼</span><span onclick="desc('MEMBER_NO')">🔽</span></th>
       <th>회원명<span onclick="asc('MEMBER_NAME')">🔼</span><span onclick="desc('MEMBER_NAME')">🔽</span></th>
       <th>등급명<span onclick="asc('GRADE_NAME')">🔼</span><span onclick="desc('GRADE_NAME')">🔽</span></th>
@@ -136,37 +173,8 @@
     </c:if>
 
 
-<script>
-    function updateMember(memberNo) {
-        
-        let updatedMemberName = "";
-        let updatedGradeName = "";
 
-        updatedMemberName = prompt("수정할 회원 이름을 입력하세요:", "");
-        updatedGradeName = prompt("수정할 회원 등급을 입력하세요:", "");
-
-        console.log(memberNo);
-        console.log(updatedMemberName);
-        console.log(updatedGradeName);
-        
-        const params = new URLSearchParams();
-        params.append("memberNo", memberNo);
-        params.append("updatedMemberName", updatedMemberName);
-        params.append("updatedGradeName", updatedGradeName);
-
-        location.href = "/MM/update?" + params.toString();
-    }
-
-    function asc(columnName){
-        location.href = "/?asc=" + columnName; 
-
-    }
-
-    function desc(columnName){
-        location.href = "/?desc=" + columnName; 
-
-    }
-  </script>
+  <script src="/resources/js/main.js"></script>
 
 </body>
 </html>

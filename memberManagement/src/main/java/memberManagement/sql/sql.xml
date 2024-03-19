@@ -18,5 +18,11 @@ VALUES(?, ?, ?)
 	WHERE MEMBER_NO = 
 </entry>
 
+<entry key="search">
+	SELECT *
+	FROM MEMBER
+	
+</entry>
+
 
 </properties>
